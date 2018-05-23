@@ -10,7 +10,7 @@ forwarding to display graphics in the local user's session without needing to
 compromise xhost security.
 
 This is derived from [scottyhardy/docker-wine GitHub repository](https://github.com/scottyhardy/docker-wine)
-but modified to get the latest wine staging as well as setting the ONBUILD VOLUME
+but modified to get the latest wine staging as well as removing VOLUME /home/wine
 directive so that /home/wine can be further modified in docker files that FROM this 
 before attaching a volume to it.
 
