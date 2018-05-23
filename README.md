@@ -1,13 +1,18 @@
 docker-wine
 ===========
 
-Included in the [scottyhardy/docker-wine GitHub repository](https://github.com/scottyhardy/docker-wine) 
+Included in the [boberfly/docker-wine GitHub repository](https://github.com/boberfly/docker-wine) 
 are scripts to enable you to build a Docker container that runs Wine. The 
 container is based on Ubuntu 16.04 and uses the Wine Staging branch (latest/
 less stable) and also includes the latest version of `winetricks`. Included 
 below are instructions for running the `docker-wine` container with X11 
 forwarding to display graphics in the local user's session without needing to 
 compromise xhost security.
+
+This is derived from [scottyhardy/docker-wine GitHub repository](https://github.com/scottyhardy/docker-wine)
+but modified to get the latest wine staging as well as setting the ONBUILD VOLUME
+directive so that /home/wine can be further modified in docker files that FROM this 
+before attaching a volume to it.
 
 Included packages
 -----------------
@@ -28,7 +33,7 @@ are also included so you don't need to download them each time:
 
 | File                       | Purpose                                                                                 |
 | -------------------------- | --------------------------------------------------------------------------------------- |
-| wine-mono-4.6.4.msi        | [Mono](https://wiki.winehq.org/Mono) open-source .Net alternative                       |
+| wine-mono-4.7.1.msi        | [Mono](https://wiki.winehq.org/Mono) open-source .Net alternative                       |
 | wine_gecko-2.47-x86.msi    | [Gecko](https://wiki.winehq.org/Gecko) 32 bit open-source Internet Explorer alternative |
 | wine_gecko-2.47-x86_64.msi | [Gecko](https://wiki.winehq.org/Gecko) 64 bit open-source Internet Explorer alternative |
 
@@ -39,7 +44,7 @@ Creating your own docker-wine image
 -----------------------------------
 First, clone the repository from GitHub:
 ```bash
-git clone https://github.com/scottyhardy/docker-wine.git
+git clone https://github.com/boberfly/docker-wine.git
 ```
 
 To build the container, simply run:
@@ -66,7 +71,7 @@ docker run -it \
     --volume="winehome:/home/wine" \
     --net="host" \
     --name="wine" \
-    scottyhardy/docker-wine <Additional arguments e.g. wine notepad.exe>
+    boberfly/docker-wine <Additional arguments e.g. wine notepad.exe>
 ```
 This includes the user's `~/.Xauthority` file which contains the magic cookie 
 required to write to the current user's X session.  For this to work you also 
@@ -116,7 +121,7 @@ docker run -it \
     --volume="winehome:/home/wine" \
     --net="host" \
     --name="wine" \
-    scottyhardy/docker-wine $*
+    boberfly/docker-wine $*
 ```
 
 Running the `docker-wine` script
@@ -202,11 +207,11 @@ context by the `su -c "$*" - wine`
 If no arguments are specified, it simply uses `su` to change to _wine_. This 
 in turn spawns a new `/bin/bash` session in _wine_'s context to interact with.
 
-If you plan to use `scottyhardy/docker-wine` as a base for another Docker 
+If you plan to use `boberfly/docker-wine` as a base for another Docker 
 image, you can set up exactly the same functionality by adding the following to 
 your Dockerfile:
 ```
-FROM scottyhardy/docker-wine
+FROM boberfly/docker-wine
 ... <your code here>
 ENTRYPOINT ["/usr/bin/entrypoint"]
 ```
