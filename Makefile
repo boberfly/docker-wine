@@ -9,4 +9,4 @@ run:
 	./docker-wine
 
 build: Dockerfile
-	docker build -t docker-wine$(branch) . 
+	docker build -t boberfly/docker-wine$(branch) . 
