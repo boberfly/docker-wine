@@ -8,8 +8,7 @@ fi
 
 # If no arguments, just su to 'wine' which will start /bin/bash
 if [ $# == 0 ]; then
-    su - wine
-
+    su -c "bash" - wine
 # Otherwise, run the command line arguments as 'wine'
 else
     su -c "$*" - wine
