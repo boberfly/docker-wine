@@ -15,8 +15,8 @@ RUN dpkg --add-architecture i386 \
         wget \
         zenity \
 # Install wine
-    && wget -nc https://dl.winehq.org/wine-builds/Release.key \
-    && apt-key add Release.key \
+    && wget -nc https://dl.winehq.org/wine-builds/winehq.key \
+    && apt-key add winehq.key \
     && add-apt-repository http://dl.winehq.org/wine-builds/ubuntu/ \
     && apt-get update \
     && apt-get install -y --install-recommends winehq-staging \
