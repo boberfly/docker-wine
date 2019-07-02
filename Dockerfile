@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 # Prevents annoying debconf errors during builds
 ARG DEBIAN_FRONTEND="noninteractive"
 RUN dpkg --add-architecture i386 \
@@ -6,6 +6,7 @@ RUN dpkg --add-architecture i386 \
     && apt-get install -y \
 # Required for adding repositories
         software-properties-common \
+		gnupg \
 # Required for wine
         winbind \
 # Required for winetricks
@@ -15,11 +16,12 @@ RUN dpkg --add-architecture i386 \
         wget \
         zenity \
 # Install wine
-    && wget -nc https://dl.winehq.org/wine-builds/winehq.key \
-    && apt-key add winehq.key \
-    && add-apt-repository http://dl.winehq.org/wine-builds/ubuntu/ \
-    && apt-get update \
-    && apt-get install -y --install-recommends winehq-staging \
+    #&& wget -nc https://dl.winehq.org/wine-builds/winehq.key \
+    #&& apt-key add winehq.key \
+    #&& add-apt-repository http://dl.winehq.org/wine-builds/ubuntu/ \
+    #&& apt-get update \
+    #&& apt-get install -y --install-recommends winehq-stable 
+    && apt-get install -y wine-stable \
 # Download wine cache files
     && mkdir -p /home/wine/.cache/wine \
     && wget https://dl.winehq.org/wine/wine-mono/4.7.1/wine-mono-4.7.1.msi \
